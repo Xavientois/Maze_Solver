@@ -1,3 +1,6 @@
+from Tkinter import Tk
+from tkFileDialog import askopenfilename
+
 # Simple prototype implementation of the A* pathfinding algorithm
 # The program reads the map data from a .txt file and prints the series
 # of coordinates through which to pass to get from the start to the goal.
@@ -116,6 +119,12 @@ def path():
         end = closedl[end.parent]
 
     return path
+
+# Returns file directory from user prompt
+def getFile():
+    Tk().withdraw()
+    filename = askopenfilename()
+    return filename
     
 
 # main function reads map file and runs program
@@ -127,7 +136,10 @@ def main():
     global openl
     global closedl
 
-    grid = readgrid('testgrid.txt')
+    print('Input directory of map data file: ')
+    directory = getFile()    
+    
+    grid = readgrid(directory)
     start = getCoords('2')
     goal = getCoords('3')
     walls = getAllCoords('1')
