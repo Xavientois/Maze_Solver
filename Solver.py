@@ -1,6 +1,6 @@
 from Tkinter import Tk
 
-# Reads positions of start, goal, and walls, and solves for shortest path
+# Reads positions of start, goal, and walls, and solves for shortest path.
 # Only vertical and horizontal movement is permitted, not diagonal.
 
 
@@ -10,7 +10,7 @@ class Square():
     def __init__(self, coord, parent):
         self.coord = coord
         self.parent = parent
-        self.start_dis = manhattan(start, coord)
+        self.start_dis = parent.start_dis + 1
         self.goal_dis = manhattan(goal, coord)
 
     def score(self):

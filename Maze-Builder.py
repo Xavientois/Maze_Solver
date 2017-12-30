@@ -55,7 +55,7 @@ def mark(coord, marking):
 # path --> List of coordinates through which to pass
 def trace(path):
     t.goto(side * path[0][0] + side / 2, -1 * side * path[0][1] - side / 2)
-    t.st()
+    t.showturtle()
     t.clear()
     t.pendown()
     for coord in path:
@@ -124,6 +124,8 @@ def main():
     t.hideturtle()
     t.speed(4) # Make the turtle super speedy
     t.pencolor("red")
+    t.width(3)
+    t.shape('turtle')
     t.clear()
     t.screen.bgcolor('black')
     t.screen.setup(side * width + side / 2, side * height + side / 2)
