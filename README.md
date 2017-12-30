@@ -1,12 +1,10 @@
 # Maze_Solver
 
-Hi folks!
+Hey folks!
 
 This README outlines the information about my Maze Solving Program.
 
-Currently, only the protype of the pathfinding algorithm is complete, but it seems to be working quite well.
-The end goal of this project is for the user to be able to draw the maze when prompted and the program will draw
-the most efficient solution to the maze.
+The first complete version of the code is up. When prompted, input the dimensions of the grid and the width of the tiles in pixels. The turtle graphics window should appear and you can begin editing the map. Left click to place or remove the start point, goal point, and walls. Then, when you're done editing the map, right click and watch as the turtle runs the maze along the shortest path. The program is a simple implementation of the A* algorithm. This has been a great learning experience and has really gotten me used to the python language.
 
 ver 0.1:
   - Prototype for algorithm functions as intended
