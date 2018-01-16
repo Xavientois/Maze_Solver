@@ -13,7 +13,10 @@ class Square():
     def __init__(self, coord, parent):
         self.coord = coord
         self.parent = parent
-        self.start_dis = manhattan(start, coord)
+        if parent is not None:
+            self.start_dis = closedl[parent].start_dis + 1
+        else:
+            self.start_dis = 0
         self.goal_dis = manhattan(goal, coord)
 
     def score(self):
