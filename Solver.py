@@ -10,10 +10,10 @@ class Square():
     def __init__(self, coord, parent):
         self.coord = coord
         self.parent = parent
-        if parent is not None:
-            self.start_dis = closedl[parent].start_dis + 1
+        if parent == None:
+          self.start_dis = 0
         else:
-            self.start_dis = 0
+          self.start_dis = parent.start_dis + 1
         self.goal_dis = manhattan(goal, coord)
 
     def score(self):
@@ -29,33 +29,35 @@ def manhattan(coord1, coord2):
 
 # Returns the next square to check
 def min_score():
-    squares = openl.values()
+    squares = list(openl.values())
     small = squares[0]
     for square in squares:
         if square.score() < small.score():
             small = square
-    return small.coord
+    return small
 
 
 # Returns a list of possible neighbor squares (not a wall or in closed list)
-# coord --> coordinates around which to check
-def neighbors(coord):
-    closedl[coord] = openl[coord] # move sqaure from open list to closed list
-    del openl[coord]
-    
-    pneighbors = [(coord[0], coord[1] + 1), (coord[0] + 1, coord[1]),
-                 (coord[0], coord[1] - 1), (coord[0] - 1, coord[1])]
+# sqr --> sqr around which to check
+def neighbors(sqr):
+    closedl[sqr.coord] = openl[sqr.coord] # move sqaure from open list to closed list
+    del openl[sqr.coord]
+
+    pneighbors = [(sqr.coord[0], sqr.coord[1] + 1),
+                  (sqr.coord[0] + 1, sqr.coord[1]),
+                  (sqr.coord[0], sqr.coord[1] - 1),
+                  (sqr.coord[0] - 1, sqr.coord[1])]
 
     for neighbor in pneighbors:  # remove any illegal squares
         if (neighbor[1] < height and neighbor[1] > -1
         and neighbor[0] < width and  neighbor[0] > -1
         and not neighbor in walls
-        and not closedl.has_key(neighbor)):
-            square = Square(neighbor, coord) # generate neighbor square
-            
+        and neighbor not in closedl):
+            square = Square(neighbor, sqr) # generate neighbor square
+
             if neighbor == goal:
                 return square
-            elif (not openl.has_key(neighbor)
+            elif (neighbor not in openl
             or square.score() < openl[neighbor].score()):
                 openl[neighbor] = square
 
@@ -66,7 +68,7 @@ def neighbors(coord):
 
 # Returns list of coords to get from start to goal while avoiding walls
 def path():
-    end = neighbors(start)
+    end = neighbors(Square(start, None))
 
     if end == None:
         return 'No path found'
@@ -74,8 +76,8 @@ def path():
         path = [end.coord]
 
     while end.parent != None:
-        path.insert(0, end.parent)
-        end = closedl[end.parent]
+        path.insert(0, end.parent.coord)
+        end = closedl[end.parent.coord]
 
     return path
     
@@ -88,10 +90,10 @@ def solve(startin, goalin, wallsin, heightin, widthin):
     global height
     global width
     global openl
-    global closedl   
-    
-    start = startin
+    global closedl
+
     goal = goalin
+    start = startin
     walls = wallsin
     width = widthin
     height = heightin

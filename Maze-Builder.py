@@ -139,5 +139,6 @@ def main():
     walls = {}
 
     designMap(t)
+    turtle.mainloop()
 
 main()
